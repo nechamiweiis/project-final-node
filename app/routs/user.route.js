@@ -3,7 +3,7 @@ const user = require('../controllers/user.controller');
 
 router.get('/', user.getAllusers);
 router.get('/:id', user.getUserById);
-router.get('/getByEmailPassword', user.getUserByPasswordAndMail);
+router.post('/getByEmailPassword', user.getByEmailPassword);
 router.post('/', user.addOneUser);
 router.put('/:id', user.updateUser);
 router.delete('/:id', user.deleteUserById);

@@ -12,18 +12,14 @@ const User = require("../models/user.model");
             passwordUser,
             emailUser,
             phoneUser,
-           
         });
-    
         res.send(ansNewUser)
-
-     
-       
+        
     } catch (error) {
         console.log("Can't save this user with error: " + error);
     }  
 }
-
+//איפה שומרים את ה USER הנוכחי?
 const getUserById = async(req, res) => {
     const id = req.params.id;
     try {
@@ -38,22 +34,26 @@ const getUserById = async(req, res) => {
     }
 }
 
-const getUserByPasswordAndMail = async(req, res) => {
-    const password = req.body.password;
-    const email = req.body.email;
+const getByEmailPassword = async(req, res) => {
+    const{
+        password ,
+        email,
+    }=req.body;
     try {
         console.log("hi i am in get user by password and email");
-        const user = await User.findOne({email:email},{password:password})
+        //לא ידוע אם מקבל מה- GETALLUSERSS כלומר אם ה USERS מלא
+        const user = (await User.find()).filter(u =>  u.emailUser == email && u.passwordUser === password)
+        //const user = await allUsers.findOne(u =>  u.emailUser == "shani3134376@gmail.com");
+        console.log(user);
         if (!user)
-            res.status(404).send({ message: "Not found user with password and email " + password +" "+email });
-        else res.send(true);
+            res.status(404).send({ message: "Not found user with password and email " + password +" " });
+        else res.send(user);
     } catch {
         res
             .status(500)
-            .send({ message: "Error retrieving user with password and email " + password+" "+email });
+            .send({ message: "Error retrieving user with password and email " + password+" "});
     }
 }
-
 const getAllusers = async(req, res) => {
     try {
         console.log("hi i am in getAllUsers");
@@ -113,7 +113,7 @@ const deleteUserById = async(req, res) => {
 module.exports= {
     addOneUser,
     getUserById,
-    getUserByPasswordAndMail,
+    getByEmailPassword,
     getAllusers,
     updateUser,
     deleteUserById,
