@@ -4,7 +4,7 @@ const User = require("../models/user.model");
     try {
             console.log("hi i am in postuser");
 
-        const { nameUser, passwordUser, emailUser, phoneUser } = req.body
+        const { nameuser, passwordUser, emailUser, phoneUser } = req.body
          
         const ansNewUser = await User.create({
     
@@ -41,9 +41,7 @@ const getByEmailPassword = async(req, res) => {
     }=req.body;
     try {
         console.log("hi i am in get user by password and email");
-        //לא ידוע אם מקבל מה- GETALLUSERSS כלומר אם ה USERS מלא
         const user = (await User.find()).filter(u =>  u.emailUser == email && u.passwordUser === password)
-        //const user = await allUsers.findOne(u =>  u.emailUser == "shani3134376@gmail.com");
         console.log(user);
         if (!user)
             res.status(404).send({ message: "Not found user with password and email " + password +" " });
