@@ -4,7 +4,7 @@ const User = require("../models/user.model");
     try {
             console.log("hi i am in postuser");
 
-        const { nameuser, passwordUser, emailUser, phoneUser } = req.body
+        const { nameUser, passwordUser, emailUser, phoneUser } = req.body
          
         const ansNewUser = await User.create({
     
